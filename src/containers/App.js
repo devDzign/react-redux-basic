@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import UserList from './UserList'
-
+import UserDetail from './UserDetail'
 
 class App extends Component {
 
     render() {
-
         return (
                 <div className="container-fluid">
                     <div className="row mt-3">
@@ -14,7 +13,7 @@ class App extends Component {
                         </div>
 
                         <div className="col-md-4 shadow-lg p-3 mb-5 bg-white rounded">
-                            <h1>Details utilisateur</h1>
+                           <UserDetail/>
                         </div>
 
                     </div>

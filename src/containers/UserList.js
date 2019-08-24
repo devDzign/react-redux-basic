@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import * as actionCreators from '../actions/actions'
+
+import UserItem from '../components/UserItem'
 
 
 class UserList extends Component {
@@ -16,13 +19,14 @@ class UserList extends Component {
                 </thead>
                 <tbody>
                 {
-                    this.props.myUser.map( user => {
-                        return <tr className="table-default" key={user.id}>
-                            <th scope="row">{user.id}</th>
-                            <td>{user.name}</td>
-                            <td>{user.role}</td>
-                            <td>{user.active}</td>
-                        </tr>
+
+                    this.props.myUsers.map( user => {
+                        return <UserItem
+                            user={user}
+                            userSelected={this.props.onSelectedUser}
+                            key={user.id}
+                            selectedUser={(this.props.userSelected)?this.props.userSelected.id: null}
+                        />
                     })
                 }
 
@@ -35,8 +39,15 @@ class UserList extends Component {
 
 const mapStateToProps = state => {
     return {
-        myUser: state.users
+        myUsers: state.myUsers,
+        userSelected: state.userSelected
     }
 }
 
-export default connect(mapStateToProps)(UserList);
+const mapDispatchToProps = dispatch => {
+    return {
+        onSelectedUser: (user) => dispatch(actionCreators.userSelected(user)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
