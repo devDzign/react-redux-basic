@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
 
 class UserList extends Component {
     render() {
@@ -8,14 +10,18 @@ class UserList extends Component {
                 <tr>
                     <th scope="col">id</th>
                     <th scope="col">name</th>
+                    <th scope="col">role</th>
+                    <th scope="col">active</th>
                 </tr>
                 </thead>
                 <tbody>
                 {
-                    this.props.myusers.map(user => {
+                    this.props.myUser.map( user => {
                         return <tr className="table-default" key={user.id}>
                             <th scope="row">{user.id}</th>
                             <td>{user.name}</td>
+                            <td>{user.role}</td>
+                            <td>{user.active}</td>
                         </tr>
                     })
                 }
@@ -24,6 +30,13 @@ class UserList extends Component {
             </table>
         );
     }
+
 }
 
-export default UserList;
+const mapStateToProps = state => {
+    return {
+        myUser: state.users
+    }
+}
+
+export default connect(mapStateToProps)(UserList);
